@@ -28,7 +28,7 @@ const FeaturesSection = () => {
 
         {/* Tabs Navigation - Horizontal scroll on mobile */}
         <div className="mb-8 md:mb-12">
-          <div className="flex overflow-x-auto pb-2 md:pb-0 md:flex-wrap md:justify-center gap-2 md:gap-3 px-2 md:px-0 hide-scrollbar">
+          <div className="flex overflow-x-auto pb-2 md:pb-0 flex-wrap md:justify-center gap-2 md:gap-3 px-2 md:px-0 hide-scrollbar">
             {featuresData.map((tab) => (
               <Button
                 key={tab.id}

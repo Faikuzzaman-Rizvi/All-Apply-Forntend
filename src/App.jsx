@@ -1,15 +1,13 @@
-import { Suspense, lazy } from 'react'
-import { Routes, Route } from 'react-router-dom'
-import { Toaster } from 'react-hot-toast'
+import { Suspense, lazy } from "react";
+import { Routes, Route } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
-import LoadingSpinner from './components/ui/LoadingSpinner'
-import ErrorPage from './pages/ErrorPage'
-import Layout from './components/layout/Layout'
+import LoadingSpinner from "./components/ui/LoadingSpinner";
+import ErrorPage from "./pages/ErrorPage";
+import Layout from "./components/layout/Layout";
 
 // Lazy-loaded pages
-const HomePage = lazy(() => import('./pages/HomePage'))
-const TrackingPage = lazy(() => import('./pages/TrackingPage'))
-const ContactPage = lazy(() => import('./pages/ContactPage'))
+const HomePage = lazy(() => import("./pages/HomePage"));
 
 function App() {
   return (
@@ -20,11 +18,11 @@ function App() {
         toastOptions={{
           duration: 5000,
           style: {
-            background: '#fff',
-            color: '#333',
-            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-            borderRadius: '12px',
-            padding: '16px',
+            background: "#fff",
+            color: "#333",
+            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+            borderRadius: "12px",
+            padding: "16px",
           },
         }}
       />
@@ -47,31 +45,7 @@ function App() {
             </Layout>
           }
         />
-        
-        
-        
-        <Route
-          path="/track"
-          element={
-            <Layout>
-              <Suspense fallback={<LoadingSpinner />}>
-                <TrackingPage />
-              </Suspense>
-            </Layout>
-          }
-        />
-        
-        <Route
-          path="/contact"
-          element={
-            <Layout>
-              <Suspense fallback={<LoadingSpinner />}>
-                <ContactPage />
-              </Suspense>
-            </Layout>
-          }
-        />
-        
+
         {/* 404 Route */}
         <Route
           path="*"
@@ -87,7 +61,7 @@ function App() {
         />
       </Routes>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

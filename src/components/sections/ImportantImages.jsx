@@ -4,8 +4,6 @@ import {
   DownloadOutlined,
   LeftOutlined,
   RightOutlined,
-  DownOutlined,
-  UpOutlined,
 } from "@ant-design/icons";
 import { Card, Carousel, Button, Modal } from "antd";
 import { images } from "../../utils/constants.jsx";
@@ -14,18 +12,10 @@ import SectionTitle from "../common/SectionTitle.jsx";
 const { Meta } = Card;
 
 const ImportantImages = () => {
-  const [expandedCards, setExpandedCards] = useState({});
   const [activeSlide, setActiveSlide] = useState(0);
   const [previewImage, setPreviewImage] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const carouselRef = React.useRef();
-
-  const toggleDescription = (id) => {
-    setExpandedCards((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
-  };
 
   const next = () => {
     carouselRef.current.next();
@@ -46,6 +36,13 @@ const ImportantImages = () => {
 
   const handleCancel = () => {
     setIsModalVisible(false);
+  };
+
+  const truncateDescription = (text) => {
+    if (text.length > 200) {
+      return text.substring(0, 200) + "...";
+    }
+    return text;
   };
 
   return (
@@ -95,7 +92,7 @@ const ImportantImages = () => {
               <div key={image.id} className="px-2 pb-4 h-full">
                 <Card
                   hoverable
-                  className="w-full border-0 rounded-2xl lg:min-h-[450px] overflow-hidden shadow-sm
+                  className="w-full border-0 rounded-2xl h-[500px] overflow-hidden shadow-sm
                   hover:shadow-md transition-all duration-300 bg-white flex flex-col"
                   cover={
                     <div className="relative pt-[56.25%] overflow-hidden rounded-t-2xl group">
@@ -120,50 +117,27 @@ const ImportantImages = () => {
                     </div>
                   }
                 >
-                  <div className="flex flex-col justify-between h-full">
-                    <h3 className="text-lg font-bold text-gray-900 mb-2">
-                      {image.title}
-                    </h3>
-                    <div className="flex-grow mb-4">
-                      <p
-                        className={`text-gray-600 text-sm ${
-                          expandedCards[image.id] ? "" : "line-clamp-3"
-                        }`}
-                      >
-                        {image.description}
+                  <div className="flex flex-col h-full">
+                    <div className="flex-grow">
+                      <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2">
+                        {image.title}
+                      </h3>
+                      <p className="text-gray-600 text-sm line-clamp-4 mb-3 h-[72px] overflow-hidden">
+                        {truncateDescription(image.description)}
                       </p>
-                      {image.description.length > 100 && (
-                        <Button
-                          type="text"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            toggleDescription(image.id);
-                          }}
-                          className="text-blue-600 hover:text-blue-800 p-0 text-xs font-medium flex items-center mt-1"
-                        >
-                          {expandedCards[image.id] ? (
-                            <>
-                              <UpOutlined className="mr-1 text-xs" /> Show less
-                            </>
-                          ) : (
-                            <>
-                              <DownOutlined className="mr-1 text-xs" /> Read
-                              more
-                            </>
-                          )}
-                        </Button>
-                      )}
                     </div>
-                    <Button
-                      type="primary"
-                      size="large"
-                      className="w-full mt-auto h-10 flex items-center justify-center rounded-lg
-                        bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700
-                        transition-all duration-300 shadow hover:shadow-md"
-                      icon={<DownloadOutlined className="text-base" />}
-                    >
-                      Download
-                    </Button>
+                    <div className="mt-auto pt-4">
+                      <Button
+                        type="primary"
+                        size="large"
+                        className="w-full h-10 flex items-center justify-center rounded-lg
+                          bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700
+                          transition-all duration-300 shadow hover:shadow-md"
+                        icon={<DownloadOutlined className="text-base" />}
+                      >
+                        Download
+                      </Button>
+                    </div>
                   </div>
                 </Card>
               </div>
